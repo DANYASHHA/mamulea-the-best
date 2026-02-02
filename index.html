@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для любимой мамы ❤️</title>
+    <style>
+        body {
+            background-color: #fff0f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+        }
+        .container { text-align: center; padding: 20px; width: 100%; z-index: 1; }
+        h1 { color: #d63384; font-size: 2rem; margin-bottom: 25px; }
+        
+        #mom-img { 
+            width: 280px; 
+            height: 280px;
+            object-fit: cover;
+            border-radius: 30px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .buttons { 
+            margin-top: 40px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            height: 150px;
+            position: relative;
+        }
+        
+        button {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        #yesBtn { 
+            background-color: #ff4d6d; 
+            color: white; 
+            z-index: 1000; /* Кнопка Да всегда выше всех */
+        }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: relative;
+            z-index: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="mom1.gif" id="mom-img" alt="Любимая мама">
+        <h1>Мамуля, ты самая лучшая мамуля на свете?</h1>
+        <div class="buttons">
+            <button id="yesBtn">Да!</button>
+            <button id="noBtn">Нет</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        let scale = 1;
+        let moving = false;
+
+        function moveButton() {
+            if (!moving) {
+                noBtn.style.position = 'fixed';
+                moving = true;
+            }
+
+            // Рассчитываем координаты, чтобы кнопка не улетала за экран
+            const padding = 50;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+
+            // Увеличиваем кнопку "Да"
+            scale += 0.3;
+            yesBtn.style.transform = `scale(${scale})`;
+        }
+
+        noBtn.addEventListener('mouseenter', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+
+        // Финальная страница
+        yesBtn.addEventListener('click', () => {
+            document.querySelector('.container').innerHTML = `
+                <img src="mom2.gif" id="mom-img">
+                <h1 style="margin-top: 30px; color: #d63384;">Я так и знал(а)!</h1>
+                <h2 style="color: #ff4d6d; font-size: 1.8rem;">Мамочка, я тебя очень сильно люблю! ❤️❤️❤️</h2>
+            `;
+        });
+    </script>
+</body>
+</html>
